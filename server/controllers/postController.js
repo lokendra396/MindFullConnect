@@ -1,5 +1,5 @@
 import postModel from "../models/postModel.js";
-
+// create post Controller
 export const createPostConstroller = async (req, res) => {
   try {
     const { name, story } = req.body;
@@ -76,6 +76,46 @@ export const deletePostController = async (req, res) => {
       success: false,
       message: "error while deleting post",
       error,
+    });
+  }
+};
+//post count
+export const postCountController = async (req, res) => {
+  try {
+    const total = await postModel.find({}).estimatedDocumentCount();
+    res.status(200).send({
+      success: true,
+      total,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      message: "Error in product count",
+      error,
+      success: false,
+    });
+  }
+};
+
+// post list base on page
+export const postListController = async (req, res) => {
+  try {
+    const perPage = 6;
+    const page = req.params.page ? req.params.page : 1;
+    const posts = await postModel
+      .find({})
+      .skip((page - 1) * perPage)
+      .limit(perPage)
+      .sort({ createdAt: -1 });
+    res.status(200).send({
+      success: true,
+      posts,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: "error in per page ctrl",
     });
   }
 };
