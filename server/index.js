@@ -6,7 +6,6 @@ import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoute.js";
 import cors from "cors";
 import postRoutes from "./routes/postRoute.js";
-import contactRoutes from "./routes/contactRoute.js";
 // const mongoose = require("mongoose");
 //configure env
 dotenv.config();
@@ -25,7 +24,6 @@ app.use(morgan("dev"));
 //ROUTES
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/post", postRoutes);
-app.use("/api/v1/contact", contactRoutes);
 
 // rest api
 
