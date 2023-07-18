@@ -17,6 +17,9 @@ connectDB();
 // rest object
 const app = express();
 
+//Define the port number
+const PORT = process.env.PORT || 8080;
+
 //middlewares
 app.use(cors());
 app.use(express.json());
